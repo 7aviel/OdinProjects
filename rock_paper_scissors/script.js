@@ -12,7 +12,7 @@ console.log("Hello, World!");
  * 5. Write the logic to play the entire game.
  */
 //Tackling the problem:
-//Setting scores as global variables
+//3. Setting scores as global variables
 let computerScore = 0;
 let humanScore = 0;
 
@@ -36,6 +36,25 @@ function getComputerChoice() {
     }
 }
 
+//2. 
+/**
+ * IF DOES NOT equal rock, paper or scissors, then  
+ */
 function getHumanChoice(choice) {
-    
+    let answer = choice.toLowerCase();
+    if(answer === 'rock' || answer === 'paper' || answer === 'scissors'){
+        return answer;
+    }else{
+        newAnswer = prompt("Enter a valid option");
+        getHumanChoice(newAnswer);
+    };
 }
+
+//4. Logic for a single round
+function playRound(computerChoice, humanChoice){
+    console.log("Let's play a Rock paper scissors game!");
+    humanChoice
+}
+
+let ans = prompt("Enter rock scissors or paper")
+console.log(getHumanChoice(ans));
