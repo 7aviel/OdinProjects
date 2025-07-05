@@ -1,5 +1,3 @@
-console.log("Hello, World!");
-
 /**
  * This is a rock-paper-scissors game implementation.
  * The user can play against the computer, which randomly selects rock, paper, or scissors.
@@ -37,24 +35,84 @@ function getComputerChoice() {
 }
 
 //2. 
-/**
- * IF DOES NOT equal rock, paper or scissors, then  
- */
 function getHumanChoice(choice) {
+    //Let's make choice case-insensitive
     let answer = choice.toLowerCase();
+    //Checks if the user's input is correct
     if(answer === 'rock' || answer === 'paper' || answer === 'scissors'){
         return answer;
     }else{
-        newAnswer = prompt("Enter a valid option");
+        newAnswer = prompt("Enter a valid option"); //If not, it calls itself again
         getHumanChoice(newAnswer);
     };
 }
 
 //4. Logic for a single round
+/**
+ * Your game will be played round by round. You will write a function that takes the human and computer player choices as arguments, plays a single round, increments the round winner’s score and logs a winner announcement.
+
+Create a new function named playRound.
+Define two parameters for playRound: humanChoice and computerChoice. Use these two parameters to take the human and computer choices as arguments.
+Make your function’s humanChoice parameter case-insensitive so that players can input “rock”, “ROCK”, “RocK”, or other variations.
+Write the code for your playRound function to console.log a string value representing the round winner, such as: “You lose! Paper beats Rock”.
+Increment the humanScore or computerScore variable based on the round winner.
+ */
+/**
+ * 3 scenarios 
+ * 1. Player and computer make the same choice. Request a new round
+ * 2. Paper > Rock > Scissors > Paper
+ * alphabetical
+ * S > R > P > S
+ */
 function playRound(computerChoice, humanChoice){
-    console.log("Let's play a Rock paper scissors game!");
-    humanChoice
+    if(computerChoice.localeCompare(humanChoice) !== 0){
+        //   Scissors                      Paper
+        if(computerChoice === 'scissors' && humanChoice ==='paper'){
+            computerScore++;
+            console.log(`You lose!. ${computerChoice} beats ${humanChoice}. Computer score: ${computerScore}`);
+        }else{
+            if(computerChoice.localeCompare(humanChoice) > 0){
+                humanScore ++;
+                console.log(`You win!. ${humanChoice} beats ${computerChoice}. Human score: ${humanScore}`);
+            }else{
+                computerScore ++;
+                console.log(`You lose!. ${computerChoice} beats ${humanChoice}. Computer score: ${computerScore}`);
+            }
+        }
+    }else{
+        newComputerChoice = getComputerChoice();
+        playRound(newComputerChoice, humanChoice);
+    }
+    
+}
+/**
+ * step 4 
+ * Your game will play 5 rounds. You will write a function named playGame that calls playRound to play 5 rounds, keeps track of the scores and declares a winner at the end.
+ * WHILE flag <= 5 
+ *    let compChoice = getComputerChoice()
+ *    let userChoice = getHumanChoice(prompt("enter option"))
+ *    playRound(computerChoice, humanChoice)
+ * ENDWHILE
+ * IF computerScore > humanScore THEN
+ *    Computer Wins!
+ * ELSE
+ *    Human Wins!
+ */
+function playGame(){
+    let compChoice;
+    let userChoice;
+    let flag = 0;
+    while(flag < 5){
+        compChoice = getComputerChoice();
+        userChoice = getHumanChoice(prompt('enter an option'));
+        playRound(compChoice, userChoice);
+        flag++;
+    }
+    if(computerScore > humanScore){
+        console.log(`Computer wins!. Computer score: ${computerScore}`);
+    }else{
+        console.log(`Human wins.! Human score: ${humanScore}`);
+    }
 }
 
-let ans = prompt("Enter rock scissors or paper")
-console.log(getHumanChoice(ans));
+playGame();
