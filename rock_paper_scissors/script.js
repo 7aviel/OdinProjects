@@ -2,7 +2,7 @@
  * This is a rock-paper-scissors game implementation.
  * The user can play against the computer, which randomly selects rock, paper, or scissors.
  * The game consists of 5 rounds, the winner is determined by the score at the end of the rounds.
- * How we'll achive this:
+ * How we'll achieve this:
  * 1. Write the logic for the computer choice. Hint: Use Math.random() to generate a random number between 1 and 3, then map it to rock, paper, or scissors.
  * 2. Write the logic for the human choice.
  * 3. Declare the players score variables.

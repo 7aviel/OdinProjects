@@ -4,11 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="stylesheets.css">
+    <title>Rock Paper & Scissors</title>
 </head>
 
 <body>
-    <h1>Rock Paper and Scissors</h1>
+    <header>
+        <div class="flex">
+            <h2>Rock Paper and Scissors</h2>
+        </div>
+    </header>
+    <main>
+        <section class="flex section-card">
+            <div class="card border-solid">
+                <div class="card-content">
+                    <h3>Rock</h3>
+                    <h1>✊</h1>
+                </div>
+            </div>
+            <div class="card border-solid">
+                <div class="card-content">
+                    <h3>Paper</h3>
+                    <h1>✋</h1>
+                </div>
+            </div>
+            <div class="card border-solid">
+                <div class="card-content">
+                    <h3>Scissors</h3>
+                    <h1>✌️</h1>
+                </div>
+            </div>
+        </section>
+        <section class="flex border-solid section-score">
+            <div class="score-container">
+                <div class="score-content">
+                    <h3>Computer Score</h3>
+                    <h1>0</h1>
+                </div>
+            </div>
+            <div class="score-container">
+                <div class="score-content">
+                    <h3>Human Score</h3>
+                    <h1>0</h1>
+                </div>
+            </div>
+        </section>
+    </main>
     <script src="script.js"></script>
 </body>
 
