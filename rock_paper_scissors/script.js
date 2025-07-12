@@ -85,6 +85,7 @@ function playRound(computerChoice, humanChoice){
     
 }
 
+
 const cards = document.querySelectorAll('.card');
 let humanChoice;
 let result;
@@ -94,6 +95,7 @@ cards.forEach( card => {
         result = playRound(getComputerChoice(), humanChoice)
         logResult(result);
         updateScore(result);
+        finishRound(5);
     }
     );
 } )
@@ -120,7 +122,40 @@ function updateScore(winner){
             score.children[1].textContent = humanScore;
         }else if (score.children[0].textContent === 'Computer Score'){
             score.children[1].textContent = computerScore;
-        }
-         
+        }         
     })
+}
+
+function finishRound(rounds){
+    if (computerScore >= rounds || humanScore >= rounds){
+        cards.forEach(card => {
+            card.classList.add('disable');
+        });
+        humanScore > computerScore ? alert('You win!') : alert('Computer wins');
+        const newButton = document.querySelector('.result-container');
+    const btn = document.createElement('button');
+    btn.textContent = 'New game';
+    btn.onclick = newGame;
+    newButton.appendChild(btn);
+    }
+}
+
+function newGame(){
+     cards.forEach(card => {
+            card.classList.remove('disable');
+        });
+        resetScore();
+        const log = document.querySelector('.log-result');
+        log.children[0].remove();
+        const resultContainer = document.querySelector('.result-container');
+        resultContainer.children[1].remove();
+}
+
+function resetScore(){
+    computerScore = 0;
+    humanScore = 0;
+    const scores = document.querySelectorAll('.score-content');
+    scores.forEach(score => { 
+        score.children[1].textContent = 0;
+        });
 }
