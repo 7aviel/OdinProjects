@@ -36,13 +36,11 @@ function getComputerChoice() {
 
 //2. 
 function getHumanChoice(choice) {
-    //Let's make choice case-insensitive
     let answer = choice.toLowerCase();
-    //Checks if the user's input is correct
     if(answer === 'rock' || answer === 'paper' || answer === 'scissors'){
         return answer;
     }else{
-        newAnswer = prompt("Enter a valid option"); //If not, it calls itself again
+        newAnswer = prompt("Enter a valid option"); 
         getHumanChoice(newAnswer);
     };
 }
@@ -57,62 +55,72 @@ Make your function’s humanChoice parameter case-insensitive so that players ca
 Write the code for your playRound function to console.log a string value representing the round winner, such as: “You lose! Paper beats Rock”.
 Increment the humanScore or computerScore variable based on the round winner.
  */
-/**
- * 3 scenarios 
- * 1. Player and computer make the same choice. Request a new round
- * 2. Paper > Rock > Scissors > Paper
- * alphabetical
- * S > R > P > S
- */
 function playRound(computerChoice, humanChoice){
     if(computerChoice.localeCompare(humanChoice) !== 0){
-        //   Scissors                      Paper
-        if(computerChoice === 'scissors' && humanChoice ==='paper'){
+
+        if(computerChoice === 'scissors' && humanChoice ==='paper'
+            || computerChoice === 'paper' && humanChoice ==='scissors'
+        ){
+          if (computerChoice === 'scissors' && humanChoice ==='paper'){
             computerScore++;
-            console.log(`You lose!. ${computerChoice} beats ${humanChoice}. Computer score: ${computerScore}`);
+                return (`You lose! ${computerChoice} beats ${humanChoice}. Computer score: ${computerScore}`);
+          }else{
+            humanScore ++;
+                return (`You win! ${humanChoice} beats ${computerChoice}. Human score: ${humanScore}`);
+          }
+            
         }else{
             if(computerChoice.localeCompare(humanChoice) > 0){
                 humanScore ++;
-                console.log(`You win!. ${humanChoice} beats ${computerChoice}. Human score: ${humanScore}`);
+                return (`You win! ${humanChoice} beats ${computerChoice}. Human score: ${humanScore}`);
             }else{
                 computerScore ++;
-                console.log(`You lose!. ${computerChoice} beats ${humanChoice}. Computer score: ${computerScore}`);
+                return (`You lose! ${computerChoice} beats ${humanChoice}. Computer score: ${computerScore}`);
             }
         }
     }else{
         newComputerChoice = getComputerChoice();
-        playRound(newComputerChoice, humanChoice);
+        return playRound(newComputerChoice, humanChoice);
     }
     
 }
-/**
- * step 4 
- * Your game will play 5 rounds. You will write a function named playGame that calls playRound to play 5 rounds, keeps track of the scores and declares a winner at the end.
- * WHILE flag <= 5 
- *    let compChoice = getComputerChoice()
- *    let userChoice = getHumanChoice(prompt("enter option"))
- *    playRound(computerChoice, humanChoice)
- * ENDWHILE
- * IF computerScore > humanScore THEN
- *    Computer Wins!
- * ELSE
- *    Human Wins!
- */
-function playGame(){
-    let compChoice;
-    let userChoice;
-    let flag = 0;
-    while(flag < 5){
-        compChoice = getComputerChoice();
-        userChoice = getHumanChoice(prompt('enter an option'));
-        playRound(compChoice, userChoice);
-        flag++;
+
+const cards = document.querySelectorAll('.card');
+let humanChoice;
+let result;
+cards.forEach( card => {
+    card.addEventListener('click', () => {
+        humanChoice = getHumanChoice(card.children[0].children[0].textContent)
+        result = playRound(getComputerChoice(), humanChoice)
+        logResult(result);
+        updateScore(result);
     }
-    if(computerScore > humanScore){
-        console.log(`Computer wins!. Computer score: ${computerScore}`);
+    );
+} )
+
+function logResult(string){
+    const resultDiv = document.querySelector('.log-result');
+    let resultTag = document.querySelector('.log-result > h1');
+    
+    if (resultTag){
+        resultTag.textContent = string;
+        resultDiv.appendChild(resultTag);
     }else{
-        console.log(`Human wins.! Human score: ${humanScore}`);
+        resultTag = document.createElement('h1');
+        resultTag.textContent = string;
+        resultDiv.appendChild(resultTag);
     }
 }
 
-playGame();
+function updateScore(winner){
+    const result = winner.split(/[!:\.\s]+/).filter(Boolean).find(value => value === 'win')
+    const scores = document.querySelectorAll('.score-content');
+    scores.forEach(score => { 
+        if (result === 'win' && score.children[0].textContent === 'Human Score'){
+            score.children[1].textContent = humanScore;
+        }else if (score.children[0].textContent === 'Computer Score'){
+            score.children[1].textContent = computerScore;
+        }
+         
+    })
+}
