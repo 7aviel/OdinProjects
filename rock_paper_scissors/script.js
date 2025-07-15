@@ -13,6 +13,7 @@
 //3. Setting scores as global variables
 let computerScore = 0;
 let humanScore = 0;
+let computerGlobalChoice;
 
 /**
  * 1. Pseudocode for computer choice:
@@ -39,12 +40,8 @@ function getHumanChoice(choice) {
     let answer = choice.toLowerCase();
     if(answer === 'rock' || answer === 'paper' || answer === 'scissors'){
         return answer;
-    }else{
-        newAnswer = prompt("Enter a valid option"); 
-        getHumanChoice(newAnswer);
-    };
+    }
 }
-
 //4. Logic for a single round
 /**
  * Your game will be played round by round. You will write a function that takes the human and computer player choices as arguments, plays a single round, increments the round winner’s score and logs a winner announcement.
@@ -79,8 +76,8 @@ function playRound(computerChoice, humanChoice){
             }
         }
     }else{
-        newComputerChoice = getComputerChoice();
-        return playRound(newComputerChoice, humanChoice);
+        computerGlobalChoice = getComputerChoice();
+        return playRound(computerGlobalChoice, humanChoice);
     }
     
 }
@@ -91,31 +88,55 @@ let humanChoice;
 let result;
 cards.forEach( card => {
     card.addEventListener('click', () => {
-        humanChoice = getHumanChoice(card.children[0].children[0].textContent)
-        result = playRound(getComputerChoice(), humanChoice)
-        logResult(result);
+        humanChoice = getHumanChoice(card.children[0].children[0].textContent);
+        computerGlobalChoice = getComputerChoice();
+        result = playRound(computerGlobalChoice, humanChoice);
+        logResult(computerGlobalChoice, humanChoice);
         updateScore(result);
         finishRound(5);
     }
     );
 } )
 
-function logResult(string){
-    const resultDiv = document.querySelector('.log-result');
-    let resultTag = document.querySelector('.log-result > h1');
-    
-    if (resultTag){
-        resultTag.textContent = string;
-        resultDiv.appendChild(resultTag);
-    }else{
-        resultTag = document.createElement('h1');
-        resultTag.textContent = string;
-        resultDiv.appendChild(resultTag);
+//Update logResult function to update emojis in Front.
+/**
+ * IF HumanChoice 
+ *  APPEND result into h1
+ */
+function logResult(computerChoice, humanChoice){
+    let compChoice = getEmojiFromString(computerChoice);
+    let humChoice = getEmojiFromString(humanChoice);
+    const humanEmoji = document.querySelector('#human-emoji');
+    const compEmoji = document.querySelector('#computer-emoji');
+    humanEmoji.textContent = humChoice;
+    compEmoji.textContent = compChoice;
+/*
+    // Append the result of the round to the log area
+    const log = document.querySelector('.log-result');
+    if (log) {
+        const resultText = document.createElement('h1');
+        resultText.textContent = `You chose ${humChoice}, Computer chose ${compChoice}`;
+        log.appendChild(resultText);
+    }*/
+}
+
+
+function getEmojiFromString(string){
+    switch (string){
+        case 'rock':
+            return '✊';
+        case 'paper':
+            return '✋';
+        case 'scissors':
+            return '✌️';
+        default:
+            return null;
     }
+        
 }
 
 function updateScore(winner){
-    const result = winner.split(/[!:\.\s]+/).filter(Boolean).find(value => value === 'win')
+    const result = getArrayString(winner).find(value => value === 'win')
     const scores = document.querySelectorAll('.score-content');
     scores.forEach(score => { 
         if (result === 'win' && score.children[0].textContent === 'Human Score'){
@@ -124,6 +145,10 @@ function updateScore(winner){
             score.children[1].textContent = computerScore;
         }         
     })
+}
+
+function getArrayString(string){
+    return string.split(/[!:\.\s]+/).filter(Boolean);
 }
 
 function finishRound(rounds){
@@ -145,10 +170,8 @@ function newGame(){
             card.classList.remove('disable');
         });
         resetScore();
-        const log = document.querySelector('.log-result');
-        log.children[0].remove();
         const resultContainer = document.querySelector('.result-container');
-        resultContainer.children[1].remove();
+        resultContainer.children[0].remove();
 }
 
 function resetScore(){

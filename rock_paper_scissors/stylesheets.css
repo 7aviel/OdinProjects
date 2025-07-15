@@ -29,7 +29,7 @@
     min-height: max-content;
     gap: 20px;
     flex-wrap: wrap;
-    height: 400px;
+    height: 300px;
     align-items: center;
 }
 
@@ -56,4 +56,17 @@
 
 .disable{
     pointer-events: none;
+}
+
+.emoji-content{
+    font-size: 8em;
+    margin: 0;
+}
+
+.card-choice{
+    width: 300px;
+    height: 300px;
+    display: flex;
+     justify-content: center;
+     align-items: center;
 }
