@@ -1,26 +1,7 @@
-/**
- * This is a rock-paper-scissors game implementation.
- * The user can play against the computer, which randomly selects rock, paper, or scissors.
- * The game consists of 5 rounds, the winner is determined by the score at the end of the rounds.
- * How we'll achieve this:
- * 1. Write the logic for the computer choice. Hint: Use Math.random() to generate a random number between 1 and 3, then map it to rock, paper, or scissors.
- * 2. Write the logic for the human choice.
- * 3. Declare the players score variables.
- * 4. Write the logic for a single round
- * 5. Write the logic to play the entire game.
- */
-//Tackling the problem:
-//3. Setting scores as global variables
 let computerScore = 0;
 let humanScore = 0;
 let computerGlobalChoice;
 
-/**
- * 1. Pseudocode for computer choice:
- * - Generate a random number between 1 and 3
- * - Map the number to rock, paper, or scissors.
- * - SWITCH 1: rock, 2: paper, 3: scissors
- */
 function getComputerChoice() {
     const randomNumber = Math.floor(Math.random() * 3) + 1; // Generates a number between 1 and 3
     switch (randomNumber) {
@@ -42,16 +23,7 @@ function getHumanChoice(choice) {
         return answer;
     }
 }
-//4. Logic for a single round
-/**
- * Your game will be played round by round. You will write a function that takes the human and computer player choices as arguments, plays a single round, increments the round winner’s score and logs a winner announcement.
 
-Create a new function named playRound.
-Define two parameters for playRound: humanChoice and computerChoice. Use these two parameters to take the human and computer choices as arguments.
-Make your function’s humanChoice parameter case-insensitive so that players can input “rock”, “ROCK”, “RocK”, or other variations.
-Write the code for your playRound function to console.log a string value representing the round winner, such as: “You lose! Paper beats Rock”.
-Increment the humanScore or computerScore variable based on the round winner.
- */
 function playRound(computerChoice, humanChoice){
     if(computerChoice.localeCompare(humanChoice) !== 0){
 
@@ -98,11 +70,6 @@ cards.forEach( card => {
     );
 } )
 
-//Update logResult function to update emojis in Front.
-/**
- * IF HumanChoice 
- *  APPEND result into h1
- */
 function logResult(computerChoice, humanChoice){
     let compChoice = getEmojiFromString(computerChoice);
     let humChoice = getEmojiFromString(humanChoice);
@@ -110,14 +77,6 @@ function logResult(computerChoice, humanChoice){
     const compEmoji = document.querySelector('#computer-emoji');
     humanEmoji.textContent = humChoice;
     compEmoji.textContent = compChoice;
-/*
-    // Append the result of the round to the log area
-    const log = document.querySelector('.log-result');
-    if (log) {
-        const resultText = document.createElement('h1');
-        resultText.textContent = `You chose ${humChoice}, Computer chose ${compChoice}`;
-        log.appendChild(resultText);
-    }*/
 }
 
 

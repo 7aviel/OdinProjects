@@ -2,12 +2,66 @@
 *::before,
 *::after{
     box-sizing: border-box;
+    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+:root{
+    --background-color: oklch(27.8% 0.033 256.848);
+    --lighter-blue:  oklch(37.3% 0.034 259.733);
+    --border-radius: 20px;
+    --button-hover: oklch(51.1% 0.096 186.391);
+    --shadow-md:  0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+body{
+    background-color: var(--background-color);
+    color: white;
+    margin: auto;
+}
+
+header{
+    background-color: var(--lighter-blue);
+}
+
+button{
+    background-color: var(--lighter-blue);
+    color: white;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    border: solid white;
+    border-radius: 8px;
+    font-size: large;
+    width: fit-content;
+    padding: 20px 5px;
+    display: flex;
+    align-items: center;
+    box-shadow: var(--shadow-md);
+}
+
+button:hover{
+    background-color: var(--button-hover);
+    transition: ease-in-out;
+}
+
+footer{
+    background-color: var(--lighter-blue);
+}
+
+.footer-container{
+    margin: 60px 0px 0px;
+    height: 100px;
+    align-items: center;
 }
 
 .flex{
     display: flex;
     justify-content: center;
     
+}
+
+.header-content{
+    height: 100px;
+    align-items: center;
 }
 
 .card{
@@ -17,6 +71,8 @@
      justify-content: center;
      align-items: center;
     cursor: pointer;
+    background-color: var(--lighter-blue);
+    border-radius: var(--border-radius);
 }
 
 .card-content{
@@ -29,8 +85,9 @@
     min-height: max-content;
     gap: 20px;
     flex-wrap: wrap;
-    height: 300px;
+    height: 100px;
     align-items: center;
+    margin: 20px 0px;
 }
 
 .border-solid{
@@ -45,7 +102,12 @@
 
 .score-container{
     display: inherit;
-    
+    background-color: var(--lighter-blue);
+    border-radius: var(--border-radius);
+    width: 200px;
+    justify-content: center;
+    margin: 20px 0px;
+    box-shadow: var(--shadow-md);
 }
 
 .score-content{
@@ -69,4 +131,24 @@
     display: flex;
      justify-content: center;
      align-items: center;
+     background-color: var(--lighter-blue);
+     border-radius: 20px;
+     box-shadow: var(--shadow-md);
+}
+
+.card-choice-section{
+    gap: 50px;
+    flex-wrap: wrap;
+    height: 350px;
+    align-items: center;
+    min-height: max-content;
+    margin: 30px 0px;
+}
+
+.result-container{
+    height: 40px;
+}
+
+.card > .card-content > .emoji-content{
+    font-size: 5em;
 }
