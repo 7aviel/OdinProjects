@@ -36,11 +36,11 @@ button{
     display: flex;
     align-items: center;
     box-shadow: var(--shadow-md);
+    transition: background-color ease-in-out 0.25s;
 }
 
 button:hover{
     background-color: var(--button-hover);
-    transition: ease-in-out;
 }
 
 footer{
